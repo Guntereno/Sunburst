@@ -1,0 +1,18 @@
+{
+    "name": "xyz.guntereno.sunburst",
+    "version": "1.0.0",
+    "displayName": "Sunburst",
+    "description": "Procedural 2D sunburst for use with the Unity UI Canvas.",
+    "unity": "2019.3",
+    "keywords": [
+        "2D",
+        "UI",
+        "radial",
+        "sunburst"
+    ],
+    "author": {
+        "name": "Pete Gunter",
+        "email": "gunterpete@hotmail.com",
+        "url": "guntereno.xyz"
+    }
+}
