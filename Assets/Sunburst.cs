@@ -22,6 +22,8 @@ public class Sunburst : MaskableGraphic
 
     public UvMapping UvMappingMode;
 
+    public bool FixedAspect;
+
     private void Update()
     {
 		m_Material.SetFloat("_SegmentCount", SegmentCount);
@@ -39,12 +41,23 @@ public class Sunburst : MaskableGraphic
     protected override void OnPopulateMesh(VertexHelper vh)
     {
         vh.Clear();
-        float radius = Mathf.Min(rectTransform.rect.width, rectTransform.rect.height) * 0.5f;
-        GenerateMesh(vh, radius);
+
+        GenerateMesh(vh, rectTransform.rect.width, rectTransform.rect.height);
     }
 
-    public void GenerateMesh(VertexHelper vh, float radius)
+    public void GenerateMesh(VertexHelper vh, float width, float height)
     {
+        //float radius = Mathf.Min(rectTransform.rect.width, rectTransform.rect.height) * 0.5f;
+
+        if(FixedAspect)
+        {
+            float radius = Mathf.Min(rectTransform.rect.width, rectTransform.rect.height);
+            width = height = radius;
+        }
+
+        float halfWidth = width * 0.5f;
+        float halfHeight = height * 0.5f;
+
         int numBeams = SegmentCount;
         if ((BeamCap > 0) && (BeamCap < SegmentCount))
         {
@@ -88,7 +101,7 @@ public class Sunburst : MaskableGraphic
                 Mathf.Sin(firstTheta),
                 Mathf.Cos(firstTheta),
                 0.0f);
-            vert.position = dir * radius;
+            vert.position = new Vector3(dir.x * halfWidth, dir.y * halfHeight, 0.0f);
             switch (UvMappingMode)
             {
                 case UvMapping.PerSegment:
@@ -105,7 +118,7 @@ public class Sunburst : MaskableGraphic
                 Mathf.Sin(secondTheta),
                 Mathf.Cos(secondTheta),
                 0.0f);
-            vert.position = dir * radius;
+            vert.position = new Vector3(dir.x * halfWidth, dir.y * halfHeight, 0.0f);
             switch (UvMappingMode)
             {
                 case UvMapping.PerSegment:
