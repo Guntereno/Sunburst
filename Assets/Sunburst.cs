@@ -26,9 +26,12 @@ public class Sunburst : MaskableGraphic
 
     private void Update()
     {
-		m_Material.SetFloat("_SegmentCount", SegmentCount);
-		m_Material.SetFloat("_SegmentWidth", SegmentWidth);
-	}
+        if (m_Material != null)
+        {
+            m_Material.SetFloat("_SegmentCount", SegmentCount);
+            m_Material.SetFloat("_SegmentWidth", SegmentWidth);
+        }
+    }
 
     protected override void OnRectTransformDimensionsChange()
     {
@@ -47,9 +50,7 @@ public class Sunburst : MaskableGraphic
 
     public void GenerateMesh(VertexHelper vh, float width, float height)
     {
-        //float radius = Mathf.Min(rectTransform.rect.width, rectTransform.rect.height) * 0.5f;
-
-        if(FixedAspect)
+        if (FixedAspect)
         {
             float radius = Mathf.Min(rectTransform.rect.width, rectTransform.rect.height);
             width = height = radius;
@@ -85,7 +86,7 @@ public class Sunburst : MaskableGraphic
             int vertIndex2 = firstVertIndex + 2;
 
             vert.position = Vector3.zero;
-            switch(UvMappingMode)
+            switch (UvMappingMode)
             {
                 case UvMapping.PerSegment:
                     vert.uv0 = new Vector2(0.5f, 0.0f);
